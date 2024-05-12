@@ -1,84 +1,68 @@
-use std::collections::HashMap;
-
-fn median(v: &mut Vec<usize>) -> f32 {
-    v.sort();
-    let len: usize = v.len();
-    match len {
-        0 => f32::NAN,
-        _ if len % 2 == 0 => (v[len / 2 - 1] + v[len / 2]) as f32 / 2.0,
-        _ => v[len / 2] as f32,
-    }
-}
-
-fn mode(v: &[usize]) -> Option<usize> {
-    let mut hm: HashMap<usize, usize> = HashMap::new();
-
-    for element in v {
-        let count = hm.entry(*element).or_insert(0);
-        *count += 1;
-    }
-
-    hm.iter().max_by_key(|&(_, val)| val).map(|(&key, _)| key)
-}
-
+pub mod median;
+pub mod mode;
 #[cfg(test)]
 pub mod test {
-    use super::*;
-    #[test]
-    fn median_one_element() {
-        let mut ints: Vec<usize> = vec![1];
+    pub mod median_tests {
+        use crate::median::median;
+        #[test]
+        fn median_one_element() {
+            let mut ints: Vec<usize> = vec![1];
 
-        assert_eq!(median(&mut ints), 1.0);
+            assert_eq!(median(&mut ints), 1.0);
+        }
+
+        #[test]
+        fn median_odd_elements() {
+            let mut ints: Vec<usize> = vec![1, 2, 3];
+
+            assert_eq!(median(&mut ints), 2.0);
+        }
+
+        #[test]
+        fn median_even_elements() {
+            let mut ints: Vec<usize> = vec![1, 2, 3, 4];
+
+            assert_eq!(median(&mut ints), 2.5);
+        }
+        #[test]
+        fn median_unsorted_vec() {
+            let mut ints: Vec<usize> = vec![1, 9, 0, 5];
+
+            assert_eq!(median(&mut ints), 3.0);
+        }
+
+        #[test]
+        fn median_empty_vec() {
+            let mut ints: Vec<usize> = Vec::new();
+
+            assert!(median(&mut ints).is_nan());
+        }
     }
+    pub mod mode_tests {
+        use crate::mode::mode;
+        #[test]
+        fn mode_even_elements() {
+            let ints: Vec<usize> = vec![1, 2, 4, 4, 4, 4, 4, 4];
+            assert_eq!(mode(&ints), Some(4));
+        }
+        #[test]
+        fn mode_odd_elements() {
+            let ints: Vec<usize> = vec![1, 2, 2];
 
-    #[test]
-    fn median_odd_elements() {
-        let mut ints: Vec<usize> = vec![1, 2, 3];
+            assert_eq!(mode(&ints), Some(2));
+        }
+        #[test]
+        fn mode_all_equal_return_none() {
+            let ints: Vec<usize> = vec![1, 2, 3, 4];
 
-        assert_eq!(median(&mut ints), 2.0);
-    }
+            assert_eq!(mode(&ints), None); /*actually can't determine it for now!! it will return the first I guess comparison*/
+        }
 
-    #[test]
-    fn median_even_elements() {
-        let mut ints: Vec<usize> = vec![1, 2, 3, 4];
+        #[test]
+        fn mode_empty_vec() {
+            let ints: Vec<usize> = Vec::new();
 
-        assert_eq!(median(&mut ints), 2.5);
-    }
-    #[test]
-    fn median_unsorted_vec() {
-        let mut ints: Vec<usize> = vec![1, 9, 0, 5];
-
-        assert_eq!(median(&mut ints), 3.0);
-    }
-
-    #[test]
-    fn median_empty_vec() {
-        let mut ints: Vec<usize> = Vec::new();
-
-        assert!(median(&mut ints).is_nan());
-    }
-    #[test]
-    fn mode_even_elements() {
-        let mut ints: Vec<usize> = vec![1, 2, 4, 4, 4, 4, 4, 4];
-        assert_eq!(mode(&ints), Some(4));
-    }
-    #[test]
-    fn mode_odd_elements() {
-        let mut ints: Vec<usize> = vec![1, 2, 2];
-
-        assert_eq!(mode(&ints), Some(2));
-    }
-    #[test]
-    fn mode_all_equal_return_None() {
-        let mut ints: Vec<usize> = vec![1, 2, 3, 4];
-
-        assert_eq!(mode(&ints), None); /*actually can't determine it for now!! it will return the first I guess comparison*/
-    }
-
-    #[test]
-    fn mode_empty_vec() {
-        let mut ints: Vec<usize> = Vec::new();
-
-        assert_eq!(mode(&ints), None);
+            assert_eq!(mode(&ints), None);
+        }
     }
 }
