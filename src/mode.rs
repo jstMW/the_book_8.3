@@ -14,7 +14,6 @@ pub fn mode(v: &[usize]) -> Option<usize> {
         .map(|(&key, _)| key) {
             None => None, 
             Some(1) => None, 
-            Some(x) => Some(x),
+            Some(x ) => Some(x),
         }
-
 }

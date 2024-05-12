@@ -57,7 +57,12 @@ pub mod test {
 
             assert_eq!(mode(&ints), None); /*actually can't determine it for now!! it will return the first I guess comparison*/
         }
+        #[test]
+        fn mode_multiple_equal_return_none() {
+            let ints: Vec<usize> = vec![1, 2, 3, 4, 5, 6, 7, 4, 5, 5, 4];
 
+            assert_eq!(mode(&ints), None); /*actually can't determine it for now!! it will return the first I guess comparison*/
+        }
         #[test]
         fn mode_empty_vec() {
             let ints: Vec<usize> = Vec::new();
