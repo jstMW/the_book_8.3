@@ -10,7 +10,7 @@ fn median(v: &mut Vec<usize>) -> f32 {
     }
 }
 
-fn mode(v: &Vec<usize>) -> Option<usize> {
+fn mode(v: &[usize]) -> Option<usize> {
     let mut hm: HashMap<usize, usize> = HashMap::new();
 
     for element in v {
