@@ -6,12 +6,11 @@ fn median(v: &mut Vec<usize>) -> f32 {
     match len {
         0 => f32::NAN,
         _ if len % 2 == 0 => (v[len / 2 - 1] + v[len / 2]) as f32 / 2.0,
-        _ => v[(len + 1) / 2 - 1] as f32,
+        _ => v[len / 2] as f32,
     }
 }
 
 fn mode(v: &Vec<usize>) -> Option<usize> {
-    let mut mode: usize = 0;
     let mut hm: HashMap<usize, usize> = HashMap::new();
 
     for element in v {
@@ -90,7 +89,7 @@ pub mod test {
         assert_eq!(mode(&ints), Some(3));
     }
     #[test]
-    fn mode_all_equal_panic() {
+    fn mode_all_equal_return_None() {
         let mut ints: Vec<usize> = Vec::new();
         ints.push(1);
         ints.push(2);
