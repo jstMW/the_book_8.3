@@ -69,7 +69,7 @@ pub mod test {
     fn median_empty_vec() {
         let mut ints: Vec<usize> = Vec::new();
 
-        assert_eq!(median(&mut ints), f32::NAN);
+        assert!(median(&mut ints).is_nan());
     }
     #[test]
     fn mode_even_elements() {
@@ -102,7 +102,7 @@ pub mod test {
         ints.push(3);
         ints.push(4);
 
-        assert_eq!(mode(&ints), None); /*actually can't determine it for now!! */
+        assert_eq!(mode(&ints), None); /*actually can't determine it for now!! it will return the first I guess comparison*/
     }
 
      #[test]
