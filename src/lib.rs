@@ -10,7 +10,7 @@ fn median(v: &mut Vec<usize>) -> f32 {
     }
 }
 
-fn mode(v: &Vec<usize>) -> usize {
+fn mode(v: &Vec<usize>) -> Option<usize> {
     let mut mode: usize = 0;
     let mut hm: HashMap<usize, usize> = HashMap::new();
 
@@ -22,7 +22,6 @@ fn mode(v: &Vec<usize>) -> usize {
     hm.iter()
         .max_by_key(|&(key, val)| val)
         .map(|(&key, value)| key)
-        .unwrap()
 }
 
 #[cfg(test)]
@@ -56,6 +55,16 @@ pub mod test {
 
         assert_eq!(median(&mut ints), 2.5);
     }
+    #[test]
+    fn median_unsorted_element() {
+        let mut ints: Vec<usize> = Vec::new();
+        ints.push(1);
+        ints.push(9);
+        ints.push(0);
+        ints.push(5);
+
+        assert_eq!(median(&mut ints), 3.0);
+    }
 
     #[test]
     fn mode_even_element_panic() {
@@ -69,7 +78,7 @@ pub mod test {
         ints.push(4);
         ints.push(4);
 
-        assert_eq!(mode(&ints), 4);
+        assert_eq!(mode(&ints), Some(4));
     }
     #[test]
     fn mode_odd_element_panic() {
@@ -78,7 +87,7 @@ pub mod test {
         ints.push(3);
         ints.push(3);
 
-        assert_eq!(mode(&ints), 3);
+        assert_eq!(mode(&ints), Some(3));
     }
     #[test]
     fn mode_all_equal_panic() {
@@ -88,6 +97,6 @@ pub mod test {
         ints.push(3);
         ints.push(4);
 
-        assert_eq!(mode(&ints), 0); /*actually can't determine it for now!! */
+        assert_eq!(mode(&ints), None); /*actually can't determine it for now!! */
     }
 }
