@@ -27,7 +27,7 @@ fn mode(v: &Vec<usize>) -> Option<usize> {
 pub mod test {
     use super::*;
     #[test]
-    fn median_one_element_panic() {
+    fn median_one_element() {
         let mut ints: Vec<usize> = Vec::new();
         ints.push(1);
 
@@ -35,7 +35,7 @@ pub mod test {
     }
 
     #[test]
-    fn median_odd_element_panic() {
+    fn median_odd_elements() {
         let mut ints: Vec<usize> = Vec::new();
         ints.push(1);
         ints.push(2);
@@ -45,7 +45,7 @@ pub mod test {
     }
 
     #[test]
-    fn median_even_element_panic() {
+    fn median_even_elements() {
         let mut ints: Vec<usize> = Vec::new();
         ints.push(1);
         ints.push(2);
@@ -55,7 +55,7 @@ pub mod test {
         assert_eq!(median(&mut ints), 2.5);
     }
     #[test]
-    fn median_unsorted_element() {
+    fn median_unsorted_vec() {
         let mut ints: Vec<usize> = Vec::new();
         ints.push(1);
         ints.push(9);
@@ -66,7 +66,13 @@ pub mod test {
     }
 
     #[test]
-    fn mode_even_element_panic() {
+    fn median_empty_vec() {
+        let mut ints: Vec<usize> = Vec::new();
+
+        assert_eq!(median(&mut ints), f32::NAN);
+    }
+    #[test]
+    fn mode_even_elements() {
         let mut ints: Vec<usize> = Vec::new();
         ints.push(1);
         ints.push(2);
@@ -80,7 +86,7 @@ pub mod test {
         assert_eq!(mode(&ints), Some(4));
     }
     #[test]
-    fn mode_odd_element_panic() {
+    fn mode_odd_elements() {
         let mut ints: Vec<usize> = Vec::new();
         ints.push(1);
         ints.push(3);
@@ -98,4 +104,12 @@ pub mod test {
 
         assert_eq!(mode(&ints), None); /*actually can't determine it for now!! */
     }
+
+     #[test]
+    fn mode_empty_vec() {
+        let mut ints: Vec<usize> = Vec::new();
+
+        assert_eq!(mode(&ints), None);
+    }
+
 }
