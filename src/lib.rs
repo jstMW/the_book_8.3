@@ -6,17 +6,16 @@ use std::{collections::HashMap, hash::Hash};
 
 fn median(v: &Vec<usize>) -> f32 {
     let len: usize = v.len();
-    if len%2==0 {
-        (v[len/2 - 1] + v[len/2]) as f32 / 2.0
+    if len % 2 == 0 {
+        (v[len / 2 - 1] + v[len / 2]) as f32 / 2.0
     } else {
         v[(len + 1) / 2 - 1] as f32
     }
-    
 }
 
 fn mode(v: &Vec<usize>) -> usize {
     let mut mode: usize = 0;
-    let mut hm: HashMap<usize, usize>  = HashMap::new();
+    let mut hm: HashMap<usize, usize> = HashMap::new();
 
     for element in v {
         let count = hm.entry(*element).or_insert(0);
@@ -24,7 +23,7 @@ fn mode(v: &Vec<usize>) -> usize {
     }
 
     for (element, rep) in hm {
-        if rep>mode {
+        if rep > mode {
             mode = element;
         }
     }
@@ -63,7 +62,6 @@ pub mod test {
 
         assert_eq!(median(&ints), 2.5);
     }
-
 
     #[test]
     fn mode_even_element_panic() {
