@@ -3,17 +3,16 @@ use std::collections::HashMap;
 fn median(v: &mut Vec<usize>) -> f32 {
     v.sort();
     let len: usize = v.len();
-    if len%2==0 {
-        (v[len/2 - 1] + v[len/2]) as f32 / 2.0
-    } else {
-        v[(len + 1) / 2 - 1] as f32
+    match len {
+        0 => f32::NAN,
+        _ if len % 2 == 0 => (v[len / 2 - 1] + v[len / 2]) as f32 / 2.0,
+        _ => v[(len + 1) / 2 - 1] as f32,
     }
-    
 }
 
 fn mode(v: &Vec<usize>) -> usize {
     let mut mode: usize = 0;
-    let mut hm: HashMap<usize, usize>  = HashMap::new();
+    let mut hm: HashMap<usize, usize> = HashMap::new();
 
     for element in v {
         let count = hm.entry(*element).or_insert(0);
@@ -22,8 +21,8 @@ fn mode(v: &Vec<usize>) -> usize {
 
     hm.iter()
         .max_by_key(|&(key, val)| val)
-        .map(|(&key, value)| key).unwrap()
-
+        .map(|(&key, value)| key)
+        .unwrap()
 }
 
 #[cfg(test)]
@@ -57,7 +56,6 @@ pub mod test {
 
         assert_eq!(median(&mut ints), 2.5);
     }
-
 
     #[test]
     fn mode_even_element_panic() {
@@ -93,4 +91,3 @@ pub mod test {
         assert_eq!(mode(&ints), 0); /*actually can't determine it for now!! */
     }
 }
-
