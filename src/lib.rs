@@ -1,5 +1,6 @@
 pub mod median;
 pub mod mode;
+pub mod pig_latin;
 #[cfg(test)]
 pub mod test {
     pub mod median_tests {
@@ -68,6 +69,36 @@ pub mod test {
             let ints: Vec<usize> = Vec::new();
 
             assert_eq!(mode(&ints), None);
+        }
+    }
+
+    pub mod pig_lating_tests {
+        use crate::pig_latin::to_pig_latin;
+        fn first_consonant_words() {
+            assert_eq!(to_pig_latin("first"), "irst-fay");
+            assert_eq!(to_pig_latin("second"), "econd-say");
+            assert_eq!(to_pig_latin("third"), "hird-tay");
+            assert_eq!(to_pig_latin("school"), "chool-say");
+            assert_eq!(to_pig_latin("music"), "usic-may");
+            assert_eq!(to_pig_latin("coffee"), "offee-cay");
+        }
+
+        fn first_wovel_words() {
+            assert_eq!(to_pig_latin("apple"), "apple-hay");
+            assert_eq!(to_pig_latin("ambient"), "ambient-hay");
+            assert_eq!(to_pig_latin("air"), "air-hay");
+            assert_eq!(to_pig_latin("ill"), "ill-hay");
+            assert_eq!(to_pig_latin("erase"), "erase-hay");
+            assert_eq!(to_pig_latin("after"), "after-hay");
+        }
+
+        fn upper_and_lower_case_words_mixed() {
+            assert_eq!(to_pig_latin("IlL"), "ill-hay");
+            assert_eq!(to_pig_latin("ERASER"), "erase-hay");
+            assert_eq!(to_pig_latin("AfTer"), "after-hay");
+            assert_eq!(to_pig_latin("school"), "chool-say");
+            assert_eq!(to_pig_latin("Music"), "usic-may");
+            assert_eq!(to_pig_latin("seCoNd"), "econd-say");
         }
     }
 }
