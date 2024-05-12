@@ -26,39 +26,27 @@ pub mod test {
     use super::*;
     #[test]
     fn median_one_element() {
-        let mut ints: Vec<usize> = Vec::new();
-        ints.push(1);
+        let mut ints: Vec<usize> = vec![1];
 
         assert_eq!(median(&mut ints), 1.0);
     }
 
     #[test]
     fn median_odd_elements() {
-        let mut ints: Vec<usize> = Vec::new();
-        ints.push(1);
-        ints.push(2);
-        ints.push(3);
+        let mut ints: Vec<usize> = vec![1, 2, 3];
 
         assert_eq!(median(&mut ints), 2.0);
     }
 
     #[test]
     fn median_even_elements() {
-        let mut ints: Vec<usize> = Vec::new();
-        ints.push(1);
-        ints.push(2);
-        ints.push(3);
-        ints.push(4);
+        let mut ints: Vec<usize> = vec![1, 2, 3, 4];
 
         assert_eq!(median(&mut ints), 2.5);
     }
     #[test]
     fn median_unsorted_vec() {
-        let mut ints: Vec<usize> = Vec::new();
-        ints.push(1);
-        ints.push(9);
-        ints.push(0);
-        ints.push(5);
+        let mut ints: Vec<usize> = vec![1, 9, 0, 5];
 
         assert_eq!(median(&mut ints), 3.0);
     }
@@ -71,34 +59,18 @@ pub mod test {
     }
     #[test]
     fn mode_even_elements() {
-        let mut ints: Vec<usize> = Vec::new();
-        ints.push(1);
-        ints.push(2);
-        ints.push(4);
-        ints.push(4);
-        ints.push(4);
-        ints.push(4);
-        ints.push(4);
-        ints.push(4);
-
+        let mut ints: Vec<usize> = vec![1, 2, 4, 4, 4, 4, 4, 4];
         assert_eq!(mode(&ints), Some(4));
     }
     #[test]
     fn mode_odd_elements() {
-        let mut ints: Vec<usize> = Vec::new();
-        ints.push(1);
-        ints.push(3);
-        ints.push(3);
+        let mut ints: Vec<usize> = vec![1, 2, 2];
 
-        assert_eq!(mode(&ints), Some(3));
+        assert_eq!(mode(&ints), Some(2));
     }
     #[test]
     fn mode_all_equal_return_None() {
-        let mut ints: Vec<usize> = Vec::new();
-        ints.push(1);
-        ints.push(2);
-        ints.push(3);
-        ints.push(4);
+        let mut ints: Vec<usize> = vec![1, 2, 3, 4];
 
         assert_eq!(mode(&ints), None); /*actually can't determine it for now!! it will return the first I guess comparison*/
     }
