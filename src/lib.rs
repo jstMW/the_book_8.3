@@ -18,9 +18,7 @@ fn mode(v: &[usize]) -> Option<usize> {
         *count += 1;
     }
 
-    hm.iter()
-        .max_by_key(|&(key, val)| val)
-        .map(|(&key, value)| key)
+    hm.iter().max_by_key(|&(_, val)| val).map(|(&key, _)| key)
 }
 
 #[cfg(test)]
@@ -105,11 +103,10 @@ pub mod test {
         assert_eq!(mode(&ints), None); /*actually can't determine it for now!! it will return the first I guess comparison*/
     }
 
-     #[test]
+    #[test]
     fn mode_empty_vec() {
         let mut ints: Vec<usize> = Vec::new();
 
         assert_eq!(mode(&ints), None);
     }
-
 }
